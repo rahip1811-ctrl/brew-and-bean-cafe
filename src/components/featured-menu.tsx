@@ -70,10 +70,10 @@ export function FeaturedMenu() {
         <motion.div
           key={category.id}
           className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
-          initial={{ opacity: 0, y: reduced ? 0 : 14 }}
+          initial={{ opacity: 0, y: reduced ? 0 : 34 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: reduced ? 0 : -8 }}
-          transition={{ duration: reduced ? 0.15 : 0.4, ease: EASE }}
+          exit={{ opacity: 0, y: reduced ? 0 : -18 }}
+          transition={{ duration: reduced ? 0.15 : 0.55, ease: EASE }}
         >
           {category.items.map((item) =>
             item.image ? (

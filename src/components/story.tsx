@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Section, SectionHeading } from "@/components/section";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion-primitives";
+import { CountUp, Reveal, Stagger, StaggerItem } from "@/components/motion-primitives";
+import { DrawnRule } from "@/components/drawn-rule";
 
 const timeline = [
   {
@@ -25,10 +26,11 @@ const timeline = [
   },
 ];
 
-const stats = [
-  { value: "10,000+", label: "Cups poured" },
-  { value: "6", label: "Single-origin lots on rotation" },
-  { value: "40", label: "Croissants a day, then we stop" },
+/** `to` counts up on scroll; `value` renders as-is where there's no number. */
+const stats: { to?: number; suffix?: string; value?: string; label: string }[] = [
+  { to: 10000, suffix: "+", label: "Cups poured" },
+  { to: 6, label: "Single-origin lots on rotation" },
+  { to: 40, label: "Croissants a day, then we stop" },
   { value: "8 AM", label: "Every single morning" },
 ];
 
@@ -52,11 +54,18 @@ export function Story() {
             </p>
           </Reveal>
 
-          <Stagger className="mt-12 grid grid-cols-2 gap-y-9 gap-x-6" gap={0.09}>
+          <Stagger className="mt-12 grid grid-cols-2 gap-y-9 gap-x-6" gap={0.14}>
             {stats.map((stat) => (
               <StaggerItem key={stat.label}>
                 <div className="font-[family-name:var(--font-display)] text-[2.5rem] leading-none text-bean">
-                  {stat.value}
+                  {stat.to !== undefined ? (
+                    <>
+                      <CountUp to={stat.to} />
+                      {stat.suffix}
+                    </>
+                  ) : (
+                    stat.value
+                  )}
                 </div>
                 <div className="mt-2 text-sm text-clay">{stat.label}</div>
               </StaggerItem>
@@ -92,11 +101,9 @@ export function Story() {
       </div>
 
       <div className="mt-24 lg:mt-32">
-        <Reveal>
-          <div className="rule" />
-        </Reveal>
+        <DrawnRule />
 
-        <Stagger className="grid gap-10 pt-14 sm:grid-cols-2 lg:grid-cols-4" gap={0.1}>
+        <Stagger className="grid gap-10 pt-14 sm:grid-cols-2 lg:grid-cols-4" gap={0.15}>
           {timeline.map((entry) => (
             <StaggerItem key={entry.year}>
               <div className="relative pt-6">

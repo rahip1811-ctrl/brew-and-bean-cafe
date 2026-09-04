@@ -29,9 +29,11 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  // The photo drifts a little slower than the page as you scroll away from it.
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", reduced ? "0%" : "18%"]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, reduced ? 1 : 0]);
+  // The photo hangs back while the copy lifts away faster, so the hero comes
+  // apart in layers instead of sliding off the screen in one piece.
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", reduced ? "0%" : "32%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", reduced ? "0%" : "-45%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, reduced ? 1 : 0]);
 
   const t = (seconds: number) => (reduced ? 0 : seconds);
 
@@ -73,7 +75,7 @@ export function Hero() {
 
       <motion.div
         className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-24 pt-32 sm:px-8 lg:pb-28"
-        style={{ opacity: contentOpacity }}
+        style={{ opacity: contentOpacity, y: contentY }}
       >
         <motion.p
           className="eyebrow text-brass/90"

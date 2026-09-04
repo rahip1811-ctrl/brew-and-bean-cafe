@@ -70,7 +70,7 @@ export default function MenuPage() {
                 </div>
               </Reveal>
 
-              <Stagger className="mt-10 grid gap-x-14 gap-y-9 lg:grid-cols-2" gap={0.05}>
+              <Stagger className="mt-10 grid gap-x-14 gap-y-9 lg:grid-cols-2" gap={0.07}>
                 {category.items.map((item) => (
                   <StaggerItem key={item.name} as="article">
                     <div className="flex items-baseline gap-4">

@@ -89,10 +89,12 @@ export function Gallery() {
             type="button"
             onClick={() => setIndex(i)}
             className="group mb-3 block w-full break-inside-avoid overflow-hidden rounded-2xl sm:mb-4"
-            initial={{ opacity: 0, y: reduced ? 0 : 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: reduced ? 0.2 : 0.6, delay: (i % 3) * 0.06, ease: EASE }}
+            initial={{ opacity: 0, y: reduced ? 0 : 56, scale: reduced ? 1 : 0.94 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+            // Column index, not photo index — the three columns cascade rather
+            // than the whole grid appearing one tile at a time top to bottom.
+            transition={{ duration: reduced ? 0.2 : 0.95, delay: (i % 3) * 0.11, ease: EASE }}
           >
             <span className="relative block">
               <Image

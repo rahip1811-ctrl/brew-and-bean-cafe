@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Reveal } from "@/components/motion-primitives";
+import { MaskedHeading, Reveal } from "@/components/motion-primitives";
 
 /** Wraps a page section with the shared max width, gutters and vertical rhythm. */
 export function Section({
@@ -46,24 +46,35 @@ export function SectionHeading({
   const centered = align === "center";
 
   return (
-    <Reveal className={`${centered ? "mx-auto max-w-2xl text-center" : "max-w-2xl"} ${className}`}>
-      <p className={`eyebrow ${dark ? "text-brass/80" : ""}`}>{eyebrow}</p>
-      <h2
-        className={`mt-4 text-[clamp(2rem,4.5vw,3.25rem)] leading-[1.06] ${
-          dark ? "text-plaster" : ""
-        }`}
-      >
-        {title}
-      </h2>
-      {description && (
-        <p
-          className={`mt-5 text-base leading-relaxed sm:text-lg ${
-            dark ? "text-plaster/70" : "text-clay"
+    <div className={`${centered ? "mx-auto max-w-2xl text-center" : "max-w-2xl"} ${className}`}>
+      {/* Three staged entrances rather than one block fade: the label, then the
+          heading rising out of its mask, then the supporting line. Reading them
+          in that order is most of what makes a section feel composed. */}
+      <Reveal>
+        <p className={`eyebrow ${dark ? "text-brass/80" : ""}`}>{eyebrow}</p>
+      </Reveal>
+
+      <MaskedHeading className="mt-4" delay={0.1}>
+        <h2
+          className={`text-[clamp(2rem,4.5vw,3.25rem)] leading-[1.06] ${
+            dark ? "text-plaster" : ""
           }`}
         >
-          {description}
-        </p>
+          {title}
+        </h2>
+      </MaskedHeading>
+
+      {description && (
+        <Reveal delay={0.26}>
+          <p
+            className={`mt-5 text-base leading-relaxed sm:text-lg ${
+              dark ? "text-plaster/70" : "text-clay"
+            }`}
+          >
+            {description}
+          </p>
+        </Reveal>
       )}
-    </Reveal>
+    </div>
   );
 }

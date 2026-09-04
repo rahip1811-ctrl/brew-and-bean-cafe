@@ -37,7 +37,7 @@ export function Follow() {
         </a>
       </div>
 
-      <Stagger className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6" gap={0.06}>
+      <Stagger className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6" gap={0.09}>
         {posts.map((post) => (
           <StaggerItem key={post.src}>
             <a

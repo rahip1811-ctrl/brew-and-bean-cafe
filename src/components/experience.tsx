@@ -32,7 +32,7 @@ export function Experience() {
         align="center"
       />
 
-      <Stagger className="mt-14 grid gap-6 md:grid-cols-3" gap={0.1}>
+      <Stagger className="mt-14 grid gap-6 md:grid-cols-3" gap={0.16}>
         {pillars.map((pillar) => (
           <StaggerItem key={pillar.title} as="article">
             <div className="group h-full overflow-hidden rounded-3xl bg-plaster ring-1 ring-brass/15 transition-shadow duration-500 hover:shadow-[0_16px_50px_rgba(64,35,22,0.1)]">
