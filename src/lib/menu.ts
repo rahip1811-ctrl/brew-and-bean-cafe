@@ -3,10 +3,11 @@
  * only the items flagged `featured`, so the teaser can never list something
  * the full menu doesn't have.
  *
- * Photography is deliberately sparse here. There are six usable food photos
- * and forty-odd items, so each category leads with one image and the rest are
- * typographic — which is how a specialty café's own menu board reads anyway.
- * Repeating the same croissant across nine tiles would look cheaper, not richer.
+ * Photography is deliberately sparse here. There are only a handful of usable
+ * food photos against forty-odd items, so a category shows images for the items
+ * that actually have their own shot and stays typographic for the rest — which
+ * is how a specialty café's own menu board reads anyway. Repeating the same
+ * croissant across nine tiles would look cheaper, not richer.
  */
 
 export type Diet = "veg" | "egg";
@@ -50,6 +51,7 @@ export const menu: MenuCategory[] = [
         description: "Espresso · steamed milk · honey · cinnamon",
         price: 220,
         diet: "veg",
+        image: "/images/honey-cinnamon-latte.jpg",
         featured: true,
       },
       {
@@ -57,6 +59,7 @@ export const menu: MenuCategory[] = [
         description: "Chikmagalur decoction, pulled the long way",
         price: 160,
         diet: "veg",
+        image: "/images/filter-kaapi.jpg",
         featured: true,
       },
       {

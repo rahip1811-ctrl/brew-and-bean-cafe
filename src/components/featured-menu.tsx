@@ -75,9 +75,9 @@ export function FeaturedMenu() {
           exit={{ opacity: 0, y: reduced ? 0 : -18 }}
           transition={{ duration: reduced ? 0.15 : 0.55, ease: EASE }}
         >
-          {category.items.map((item) =>
+          {category.items.map((item, i) =>
             item.image ? (
-              <ImageCard key={item.name} item={item} />
+              <ImageCard key={item.name} item={item} lead={i === 0} />
             ) : (
               <TextCard key={item.name} item={item} />
             ),
@@ -95,15 +95,26 @@ export function FeaturedMenu() {
   );
 }
 
-function ImageCard({ item }: { item: MenuItem }) {
+function ImageCard({ item, lead = false }: { item: MenuItem; lead?: boolean }) {
   return (
-    <article className="group overflow-hidden rounded-2xl bg-plaster ring-1 ring-brass/15 sm:col-span-2 lg:col-span-1 lg:row-span-1">
+    // Only the first card in a category takes the full two-column width on
+    // tablet. Applying it to every image card would stack a category like
+    // Coffee — which has a photo for all three — into three full-bleed rows.
+    <article
+      className={`group overflow-hidden rounded-2xl bg-plaster ring-1 ring-brass/15 ${
+        lead ? "sm:col-span-2 lg:col-span-1" : ""
+      }`}
+    >
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
           src={item.image!}
           alt={item.name}
           fill
-          sizes="(max-width: 1024px) 100vw, 33vw"
+          sizes={
+            lead
+              ? "(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 33vw"
+              : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          }
           className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
         />
       </div>

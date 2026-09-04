@@ -1,13 +1,15 @@
 # Photography
 
-All twenty photos are in place and wired to the layout by filename. Replacing
-any of them means dropping a new file over the old one — no code changes.
+All photos are in place and wired to the layout by filename. Replacing any of
+them means dropping a new file over the old one — no code changes.
 
 | File | Used for |
 |---|---|
 | `../brand/logo.png` | Navbar and footer wordmark |
 | `exterior-storefront.png` | **Hero**, gallery, Open Graph card, JSON-LD |
 | `cappuccino-latte-art.jpg` | Signature #1, featured Coffee card, gallery, Instagram grid |
+| `honey-cinnamon-latte.jpg` | Featured Coffee card — Honey Cinnamon Latte ⚠️ low-res |
+| `filter-kaapi.jpg` | Featured Coffee card — Filter Kaapi ⚠️ low-res |
 | `signature-cream-croissant.jpg` | Signature #2, featured Pastries card, Instagram grid |
 | `table-spread-cheesecake.jpg` | Signature #3, featured Tea card, Instagram grid |
 | `bar-counter-grinders.jpg` | Café Experience — Coffee, `/menu` header |
@@ -50,6 +52,21 @@ places: `pourover-v60.jpg` is one of the three Café Experience cards, and
 
 A competitor's name on your own café's website is worth avoiding. Either crop
 it out or swap these three for shots without third-party branding.
+
+### 3. Two menu photos are too small
+
+The menu cards render at roughly 400px wide, which needs an ~800px source to
+stay sharp on a phone or a retina screen. These two are well under that:
+
+- `honey-cinnamon-latte.jpg` — **388 × 515**. Worst affected: it is portrait,
+  so cropping to the card's 4:3 frame throws away most of the height and leaves
+  roughly 388 × 291 to stretch across an 800px slot. Expect visible softness.
+- `filter-kaapi.jpg` — **678 × 452**. Close enough to pass at 1x, slightly soft
+  on a retina display.
+
+Both work and look correct in the layout; they are just not crisp. Higher-
+resolution versions dropped over the same filenames need no code change. A
+landscape or square crop of the latte would help as much as more pixels.
 
 ## Source sizes
 
