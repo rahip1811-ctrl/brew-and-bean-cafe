@@ -6,7 +6,12 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { MobileActionBar } from "@/components/mobile-action-bar";
 import { SmoothScroll } from "@/components/smooth-scroll";
-import { addressLines, openingHoursSpecification, site } from "@/lib/site";
+import {
+  addressLines,
+  openingHoursSpecification,
+  PHONE_IS_PLACEHOLDER,
+  site,
+} from "@/lib/site";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -67,7 +72,11 @@ const jsonLd = {
   name: site.name,
   description: site.description,
   url: site.url,
-  telephone: site.phone,
+  // Omitted while the number is a placeholder. Publishing it here is worse than
+  // showing it on the page: search engines index `telephone` and surface it in
+  // the local panel, so a stranger's number would end up being handed out by
+  // Google itself. Returns automatically once a real number is set.
+  ...(PHONE_IS_PLACEHOLDER ? {} : { telephone: site.phone }),
   email: site.email,
   image: `${site.url}/images/exterior-storefront.png`,
   logo: `${site.url}/brand/logo.png`,

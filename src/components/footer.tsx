@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { hoursDisplay, site } from "@/lib/site";
+import { hoursDisplay, PHONE_IS_PLACEHOLDER, site } from "@/lib/site";
 
 const nav = [
   { label: "Menu", href: "/menu" },
@@ -14,7 +14,10 @@ const nav = [
 const socials = [
   { label: "Instagram", href: site.instagramUrl },
   { label: "Facebook", href: site.facebookUrl },
-  { label: "WhatsApp", href: `https://wa.me/${site.whatsapp}` },
+  // WhatsApp appears only once there is a real number behind it.
+  ...(PHONE_IS_PLACEHOLDER
+    ? []
+    : [{ label: "WhatsApp", href: `https://wa.me/${site.whatsapp}` }]),
 ];
 
 export function Footer({ addressLines }: { addressLines: string[] }) {
@@ -60,12 +63,16 @@ export function Footer({ addressLines }: { addressLines: string[] }) {
                 <div key={line}>{line}</div>
               ))}
             </address>
-            <a
-              href={`tel:${site.phone}`}
-              className="mt-3 inline-block text-sm text-plaster/70 transition-colors hover:text-plaster"
-            >
-              {site.phoneDisplay}
-            </a>
+            {PHONE_IS_PLACEHOLDER ? (
+              <p className="mt-3 text-sm text-plaster/70">{site.phoneDisplay}</p>
+            ) : (
+              <a
+                href={`tel:${site.phone}`}
+                className="mt-3 inline-block text-sm text-plaster/70 transition-colors hover:text-plaster"
+              >
+                {site.phoneDisplay}
+              </a>
+            )}
           </FooterColumn>
 
           <FooterColumn title="Hours">

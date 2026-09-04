@@ -1,7 +1,13 @@
 import { Section, SectionHeading } from "@/components/section";
 import { Reveal } from "@/components/motion-primitives";
 import { OpenStatus } from "@/components/open-status";
-import { addressLines, hoursDisplay, KITCHEN_CLOSES_BEFORE, site } from "@/lib/site";
+import {
+  addressLines,
+  hoursDisplay,
+  KITCHEN_CLOSES_BEFORE,
+  PHONE_IS_PLACEHOLDER,
+  site,
+} from "@/lib/site";
 
 /**
  * Hours and location in one section. They answer the same question — "can I
@@ -11,13 +17,17 @@ import { addressLines, hoursDisplay, KITCHEN_CLOSES_BEFORE, site } from "@/lib/s
 export function Visit() {
   const actions = [
     { label: "Get Directions", href: site.directionsUrl, primary: true, external: true },
-    { label: "Call Us", href: `tel:${site.phone}`, primary: false, external: false },
-    {
-      label: "WhatsApp",
-      href: `https://wa.me/${site.whatsapp}`,
-      primary: false,
-      external: true,
-    },
+    ...(PHONE_IS_PLACEHOLDER
+      ? [{ label: "Reserve a Table", href: "#reserve", primary: false, external: false }]
+      : [
+          { label: "Call Us", href: `tel:${site.phone}`, primary: false, external: false },
+          {
+            label: "WhatsApp",
+            href: `https://wa.me/${site.whatsapp}`,
+            primary: false,
+            external: true,
+          },
+        ]),
   ];
 
   return (
@@ -64,12 +74,19 @@ export function Visit() {
                   <div key={line}>{line}</div>
                 ))}
               </address>
-              <a
-                href={`tel:${site.phone}`}
-                className="mt-3 inline-block text-clay transition-colors hover:text-bean"
-              >
-                {site.phoneDisplay}
-              </a>
+              {PHONE_IS_PLACEHOLDER ? (
+                <p className="mt-3 text-clay">
+                  {site.phoneDisplay}{" "}
+                  <span className="text-xs text-clay/70">(sample number)</span>
+                </p>
+              ) : (
+                <a
+                  href={`tel:${site.phone}`}
+                  className="mt-3 inline-block text-clay transition-colors hover:text-bean"
+                >
+                  {site.phoneDisplay}
+                </a>
+              )}
             </div>
           </Reveal>
 

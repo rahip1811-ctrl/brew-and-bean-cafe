@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { site } from "@/lib/site";
+import { PHONE_IS_PLACEHOLDER, site } from "@/lib/site";
 
 /**
  * The single highest-value element on a café site that lives in an Instagram
@@ -20,16 +20,25 @@ export function MobileActionBar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const actions = [
-    { label: "Directions", href: site.directionsUrl, external: true, icon: PinIcon },
-    { label: "Call", href: `tel:${site.phone}`, external: false, icon: PhoneIcon },
-    {
-      label: "WhatsApp",
-      href: `https://wa.me/${site.whatsapp}`,
-      external: true,
-      icon: ChatIcon,
-    },
-  ];
+  // Directions is always real. The other two depend on a genuine phone number,
+  // so while it is a placeholder the bar carries three working actions instead
+  // of two dead ones — and returns to Call/WhatsApp as soon as one is set.
+  const actions = PHONE_IS_PLACEHOLDER
+    ? [
+        { label: "Directions", href: site.directionsUrl, external: true, icon: PinIcon },
+        { label: "Menu", href: "/menu", external: false, icon: MenuIcon },
+        { label: "Reserve", href: "/#reserve", external: false, icon: ChatIcon },
+      ]
+    : [
+        { label: "Directions", href: site.directionsUrl, external: true, icon: PinIcon },
+        { label: "Call", href: `tel:${site.phone}`, external: false, icon: PhoneIcon },
+        {
+          label: "WhatsApp",
+          href: `https://wa.me/${site.whatsapp}`,
+          external: true,
+          icon: ChatIcon,
+        },
+      ];
 
   return (
     <AnimatePresence>
@@ -87,6 +96,14 @@ function PhoneIcon() {
   return (
     <svg {...iconProps} className="text-terracotta">
       <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z" />
+    </svg>
+  );
+}
+
+function MenuIcon() {
+  return (
+    <svg {...iconProps} className="text-terracotta">
+      <path d="M4 6h16M4 12h16M4 18h10" />
     </svg>
   );
 }

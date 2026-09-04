@@ -27,8 +27,8 @@ export const site = {
   geo: { lat: 23.0396, lng: 72.5065 },
 
   /**
-   * PLACEHOLDER. Every Indian mobile range is live, so this must be replaced
-   * with the café's real number before the site is published anywhere public.
+   * PLACEHOLDER — see PHONE_IS_PLACEHOLDER below. Every Indian mobile range is
+   * live, so this could well belong to a real person.
    */
   phone: "+919879540118",
   phoneDisplay: "+91 98795 40118",
@@ -46,6 +46,22 @@ export const site = {
     "https://www.google.com/maps/dir/?api=1&destination=Sindhu+Bhavan+Road%2C+Bodakdev%2C+Ahmedabad%2C+Gujarat+380054",
   reviewsUrl: "https://www.google.com/maps/search/?api=1&query=Brew+and+Bean+Cafe+Ahmedabad",
 } as const;
+
+/**
+ * Whether `site.phone` is still the invented placeholder.
+ *
+ * While this is true the site deliberately cannot dial it: the number renders
+ * as plain text, every `tel:` and `wa.me` link is dropped, and `telephone` is
+ * left out of the structured data so search engines never index it. Otherwise a
+ * public deployment would send strangers to whoever actually owns that number.
+ *
+ * Put the café's real number in `site.phone` / `phoneDisplay` / `whatsapp`, then
+ * set this to false — the calling and WhatsApp actions come back on their own.
+ *
+ * Annotated `boolean` rather than inferred, so flipping it doesn't make
+ * TypeScript treat the other branch as dead code.
+ */
+export const PHONE_IS_PLACEHOLDER: boolean = true;
 
 export const addressLines = [
   site.address.line1,

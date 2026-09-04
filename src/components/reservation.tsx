@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Section, SectionHeading } from "@/components/section";
 import { Reveal } from "@/components/motion-primitives";
-import { site } from "@/lib/site";
+import { PHONE_IS_PLACEHOLDER, site } from "@/lib/site";
 import {
   submitReservation,
   today,
@@ -80,15 +80,22 @@ export function Reservation() {
           </Reveal>
 
           <Reveal delay={0.16}>
-            <p className="mt-8 text-sm text-clay">
-              Prefer to talk to someone?{" "}
-              <a
-                href={`tel:${site.phone}`}
-                className="text-bean underline decoration-brass/40 underline-offset-4"
-              >
-                {site.phoneDisplay}
-              </a>
-            </p>
+            {PHONE_IS_PLACEHOLDER ? (
+              <p className="mt-8 text-sm text-clay">
+                Table for more than eight? Say so in the special request and
+                we&apos;ll sort it out.
+              </p>
+            ) : (
+              <p className="mt-8 text-sm text-clay">
+                Prefer to talk to someone?{" "}
+                <a
+                  href={`tel:${site.phone}`}
+                  className="text-bean underline decoration-brass/40 underline-offset-4"
+                >
+                  {site.phoneDisplay}
+                </a>
+              </p>
+            )}
           </Reveal>
         </div>
 
