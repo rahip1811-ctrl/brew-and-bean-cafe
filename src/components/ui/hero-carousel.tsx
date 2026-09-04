@@ -136,6 +136,10 @@ export function HeroCarousel({
   const [uncontrolled, setUncontrolled] = React.useState(defaultIndex);
   const [dragging, setDragging] = React.useState(false);
   const [paused, setPaused] = React.useState(false);
+  // Cards whose photograph failed to load. A card is nothing but an image, so
+  // without this a failed request leaves a hole the exact size of a card and
+  // the strip silently looks broken rather than reporting that it is.
+  const [failed, setFailed] = React.useState<Set<number>>(new Set());
   const reduced = useReducedMotion();
 
   const last = items.length - 1;
@@ -495,10 +499,11 @@ export function HeroCarousel({
               aria-label={item.title.replace(/\n/g, " ")}
               aria-current={i === index}
               onClick={() => go(i)}
-              // The inset hairline is what stops a pale photograph — the white
-              // plaster room, the cream storefront — from dissolving into a
-              // pale backdrop and reading as a gap in the strip.
-              className="relative shrink-0 overflow-hidden rounded-none bg-plaster/5 shadow-[inset_0_0_0_1px_rgb(247_242_233_/_0.28)]"
+              // Two defences against a card reading as a gap in the strip. The
+              // inset hairline gives every card an edge on any backdrop, pale
+              // photograph or not; the tinted base means a card that is still
+              // loading — or whose image never arrives — is still visibly a card.
+              className="relative shrink-0 overflow-hidden rounded-none bg-charcoal/35 shadow-[inset_0_0_0_1px_rgb(247_242_233_/_0.28)]"
               style={{ width: cardW }}
               // `initial` as well as `animate`: height is the card's only
               // source of size, and a button holding nothing but an absolutely
@@ -513,15 +518,34 @@ export function HeroCarousel({
                   nothing to it - it only picks which band of the portrait the
                   half-height neighbours keep. Anchored just above centre so a
                   clipped card still shows a face, not a forehead. */}
-              <Image
-                src={item.image}
-                alt={item.alt ?? ""}
-                fill
-                draggable={false}
-                sizes="(max-width: 768px) 40vw, 20vw"
-                className="object-cover"
-                style={{ objectPosition: "50% 26%" }}
-              />
+              {failed.has(i) ? (
+                // Never a blank rectangle: name the slide instead, so the strip
+                // still reads and the fault is obvious rather than invisible.
+                <span
+                  className="flex h-full w-full items-center justify-center p-2 text-center font-mono uppercase leading-tight tracking-[0.1em] text-plaster/70"
+                  style={{ fontSize: label }}
+                >
+                  {item.title.replace(/\n/g, " ")}
+                </span>
+              ) : (
+                <Image
+                  src={item.image}
+                  alt={item.alt ?? ""}
+                  fill
+                  draggable={false}
+                  sizes="(max-width: 768px) 40vw, 20vw"
+                  className="object-cover"
+                  style={{ objectPosition: "50% 26%" }}
+                  onError={() =>
+                    setFailed((prev) => {
+                      if (prev.has(i)) return prev;
+                      const next = new Set(prev);
+                      next.add(i);
+                      return next;
+                    })
+                  }
+                />
+              )}
               {/* Unfocused cards sit back a touch without going grey. */}
               <motion.span
                 aria-hidden
