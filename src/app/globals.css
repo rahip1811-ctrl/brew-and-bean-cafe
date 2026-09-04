@@ -87,44 +87,6 @@
 }
 
 @layer components {
-  /* ------------------------------------------------------------------------
-     The hero load sequence.
-
-     Deliberately CSS rather than JavaScript. The curtain starts fully opaque
-     over the photograph, so if a JS-driven animation were throttled (a
-     backgrounded tab), delayed, or failed outright, the first thing a visitor
-     arriving from an Instagram link would see is a black screen. A CSS
-     animation with `forwards` always completes, and degrades to "already
-     finished" if scripting is off entirely.
-     ------------------------------------------------------------------------ */
-
-  .hero-curtain {
-    animation: hero-curtain-lift 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
-  }
-
-  .hero-zoom {
-    animation: hero-zoom-settle 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
-  }
-
-  @keyframes hero-curtain-lift {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-      visibility: hidden;
-    }
-  }
-
-  @keyframes hero-zoom-settle {
-    from {
-      transform: scale(1.12);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
-
   /* The wide-tracked small-caps label above section headings. This is the
      detail that reads as "designed" rather than "templated". */
   .eyebrow {
@@ -146,15 +108,6 @@
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  /* The blanket rule below would collapse these to 0.01ms, which is correct:
-     the curtain vanishes and the photo is simply there. Spelled out so the
-     intent survives a future edit to that rule. */
-  .hero-curtain,
-  .hero-zoom {
-    animation-duration: 0.01ms;
-    animation-delay: 0ms;
   }
 
   *,

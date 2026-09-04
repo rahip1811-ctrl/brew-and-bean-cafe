@@ -1,4 +1,4 @@
-import { Hero } from "@/components/hero";
+import { HeroShowcase } from "@/components/hero-showcase";
 import { FeaturedMenu } from "@/components/featured-menu";
 import { Signatures } from "@/components/signatures";
 import { Story } from "@/components/story";
@@ -13,7 +13,7 @@ import { Newsletter } from "@/components/newsletter";
 export default function HomePage() {
   return (
     <>
-      <Hero />
+      <HeroShowcase />
       <FeaturedMenu />
       <Signatures />
       <Story />
