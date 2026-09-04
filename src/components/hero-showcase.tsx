@@ -32,7 +32,10 @@ const SLIDES: HeroCarouselItem[] = [
     alt: "The Brew and Bean storefront on Sindhu Bhavan Road at golden hour",
     credit: "BREW AND BEAN CAFE.",
     meta: ["8 AM – 10 PM", "BODAKDEV", "AHMEDABAD"],
-    accent: "#9a6a46",
+    // Deeper than the other warm tones: the storefront is a cream building shot
+    // in full golden-hour light, easily the brightest photograph in the set, and
+    // it is the one the headline has to sit on when the page first loads.
+    accent: "#7f5232",
   },
   {
     id: "roastery",

@@ -308,14 +308,23 @@ export function HeroCarousel({
             style={{ backgroundColor: accent, mixBlendMode: "color" }}
           />
           <div
-            className="absolute inset-0 opacity-55"
+            // Deeper than the reference's 0.55. The café's photographs are
+            // bone-white plaster and cream stone rather than the demo's dark
+            // studio art, so a lighter multiply left the whole stage washed out:
+            // the headline had nothing to sit on and pale cards had no edge.
+            className="absolute inset-0 opacity-[0.68]"
             style={{ backgroundColor: accent, mixBlendMode: "multiply" }}
           />
         </motion.div>
       </AnimatePresence>
 
-      {/* Legibility wash + grain, above the swap so they never flicker. */}
-      <div className="absolute inset-0 bg-gradient-to-b from-charcoal/45 via-transparent to-charcoal/60" />
+      {/* Legibility washes + grain, above the swap so they never flicker.
+          Vertical alone is not enough: the headline sits around 40% down, where
+          a from/via/to gradient is at its most transparent. The second, left-
+          weighted pass guarantees contrast down the text column while leaving
+          the right of the photograph bright. */}
+      <div className="absolute inset-0 bg-gradient-to-b from-charcoal/50 via-charcoal/20 to-charcoal/65" />
+      <div className="absolute inset-0 bg-gradient-to-r from-charcoal/60 via-charcoal/10 to-transparent" />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.22] mix-blend-overlay"
@@ -376,7 +385,11 @@ export function HeroCarousel({
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.h1
               key={index}
-              className="font-[family-name:var(--font-display)] leading-[0.88] tracking-[-0.03em]"
+              // `text-plaster` is explicit because the project's base layer sets
+              // a brown colour on every h1-h4. Inheriting the stage's light text
+              // is not enough — the element's own rule wins, and the headline
+              // renders dark brown on a dark photograph.
+              className="font-[family-name:var(--font-display)] leading-[0.88] tracking-[-0.03em] text-plaster"
               style={{ fontSize: Math.max(24, Math.round(box.h * TITLE)) }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -482,7 +495,10 @@ export function HeroCarousel({
               aria-label={item.title.replace(/\n/g, " ")}
               aria-current={i === index}
               onClick={() => go(i)}
-              className="relative shrink-0 overflow-hidden rounded-none bg-plaster/5"
+              // The inset hairline is what stops a pale photograph — the white
+              // plaster room, the cream storefront — from dissolving into a
+              // pale backdrop and reading as a gap in the strip.
+              className="relative shrink-0 overflow-hidden rounded-none bg-plaster/5 shadow-[inset_0_0_0_1px_rgb(247_242_233_/_0.28)]"
               style={{ width: cardW }}
               // `initial` as well as `animate`: height is the card's only
               // source of size, and a button holding nothing but an absolutely
