@@ -13,7 +13,7 @@ them means dropping a new file over the old one — no code changes.
 | `signature-cream-croissant.jpg` | Signature #2, featured Pastries card, Instagram grid |
 | `table-spread-cheesecake.jpg` | Signature #3, featured Tea card, Instagram grid |
 | `bar-counter-grinders.jpg` | Café Experience — Coffee, `/menu` header |
-| `pourover-v60.jpg` | Café Experience — Fresh |
+| `croissants-fresh.jpg` | Café Experience — Fresh |
 | `terrace-rattan-pots.jpg` | Café Experience — Space, gallery, Instagram grid |
 | `barista-at-work.jpg` | Our Story (main portrait), gallery |
 | `roastery-beans.jpg` | Our Story (inset frame) |
@@ -25,25 +25,29 @@ them means dropping a new file over the old one — no code changes.
 | `window-arch-interior.jpg` | Gallery |
 | `bar-shelf-cups.jpg` | Gallery, Instagram grid |
 | `pastries-danish-spread.jpg` | Featured Desserts card, gallery |
-| `croissants-coffee.jpg` | Featured Breakfast card |
+| `avocado-egg-toast.jpg` | Featured Breakfast card |
 
-## Two things to fix before this goes public
+## Licensing
 
-### 1. Watermarked stock previews
+Three files were unlicensed iStock comps and would have rendered with a
+watermark on a public site. They have been replaced, and a fourth
+(`latte-art-pour.jpg`, unused) was deleted:
 
-Four files are unlicensed iStock comps and will render with the watermark
-visible:
+| Was | Now | Source | Licence |
+|---|---|---|---|
+| `croissants-coffee.jpg` | `avocado-egg-toast.jpg` | [Pexels 4062617](https://www.pexels.com/photo/toast-with-avocado-and-poached-egg-4062617/) | Pexels — free commercial use, no attribution required |
+| `pourover-v60.jpg` | `croissants-fresh.jpg` | [Pexels 2135](https://www.pexels.com/photo/bunch-of-croissant-2135/) | Pexels — as above |
+| `roastery-beans.jpg` | *(same name, new file)* | [Pexels 4264047](https://www.pexels.com/photo/photo-of-coffee-roasting-4264047/) | Pexels — as above |
 
-- `croissants-coffee.jpg` (iStock 1001971972)
-- `roastery-beans.jpg` (iStock 2243130936)
-- `pourover-v60.jpg` (iStock 2218046452)
-- `latte-art-pour.jpg` (iStock 2204615614) — currently unused
+Every replacement was checked for watermarks, third-party branding and legible
+prices before being used. Two otherwise good candidates were rejected on that
+basis: one carried "CASUAL Coffee & Bakery" on the mug, another showed a rival
+bakery's price cards in a foreign currency.
 
-They need licensed copies, or replacements. Two of them sit in prominent
-places: `pourover-v60.jpg` is one of the three Café Experience cards, and
-`roastery-beans.jpg` is the inset frame in Our Story.
+The Café Experience "Fresh" card changed subject in the process. It used to show
+a pour-over illustrating a paragraph about croissants; it now shows croissants.
 
-### 2. Other cafés' branding is visible
+## Other cafés' branding is still visible in three photos
 
 - `table-spread-cheesecake.jpg` — "PACUA COFFEE & BAKERY" printed across the
   napkins. This one is a **signature card**, shown large.

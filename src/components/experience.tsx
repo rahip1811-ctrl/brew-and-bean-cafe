@@ -12,8 +12,10 @@ const pillars = [
   {
     title: "Fresh",
     body: "Croissants laminated over three days and baked at six. When they're gone, they're gone.",
-    image: "/images/pourover-v60.jpg",
-    alt: "A pour-over being brewed by hand",
+    // Was a pour-over, which illustrated a paragraph about pastry. The card
+    // now shows what the copy actually describes.
+    image: "/images/croissants-fresh.jpg",
+    alt: "A pile of croissants, freshly baked and glazed",
   },
   {
     title: "Space",

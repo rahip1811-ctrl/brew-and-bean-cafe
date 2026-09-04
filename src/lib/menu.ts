@@ -151,7 +151,12 @@ export const menu: MenuCategory[] = [
         description: "Soft eggs, green chilli, coriander, buttered sourdough",
         price: 290,
         diet: "egg",
-        image: "/images/croissants-coffee.jpg",
+        // The photograph shows egg on toast, so it belongs on the item marked
+        // "egg". It would sit on Avocado & Chilli Toast more neatly by subject,
+        // but that item is marked vegetarian and the photo has a poached egg in
+        // it — and the veg mark is the one thing on an Indian menu that has to
+        // be right.
+        image: "/images/avocado-egg-toast.jpg",
         featured: true,
       },
       {
