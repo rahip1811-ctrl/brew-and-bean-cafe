@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
-import Script from "next/script";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 import { Navbar } from "@/components/navbar";
@@ -109,26 +109,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${fraunces.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-plaster text-ink">
-        {/* Google Analytics 4 */}
-        <Script
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-RFYGVS3J0J"
-        />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-RFYGVS3J0J', {
-                page_path: window.location.pathname,
-              });
-            `,
-          }}
-        />
-
         <script
           type="application/ld+json"
           // The object is authored above, not user input.
@@ -147,6 +127,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer addressLines={addressLines} />
         <MobileActionBar />
+        
+        {/* Google Analytics */}
+        <GoogleAnalytics gaId="G-RFYGVS3J0J" />
       </body>
     </html>
   );
