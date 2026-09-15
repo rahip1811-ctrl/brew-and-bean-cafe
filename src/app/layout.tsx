@@ -108,7 +108,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en-IN"
       className={`${fraunces.variable} ${inter.variable} h-full antialiased`}
     >
-      <head>
+      <body className="flex min-h-full flex-col bg-plaster text-ink">
         {/* Google Analytics 4 */}
         <Script
           strategy="afterInteractive"
@@ -128,8 +128,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             `,
           }}
         />
-      </head>
-      <body className="flex min-h-full flex-col bg-plaster text-ink">
+
         <script
           type="application/ld+json"
           // The object is authored above, not user input.
