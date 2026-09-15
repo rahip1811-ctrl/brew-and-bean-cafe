@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 import { Navbar } from "@/components/navbar";
@@ -108,6 +107,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en-IN"
       className={`${fraunces.variable} ${inter.variable} h-full antialiased`}
     >
+      <head>
+        {/* Google Analytics - Direct Script Tag */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFYGVS3J0J"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-RFYGVS3J0J');
+          `,
+        }} />
+      </head>
       <body className="flex min-h-full flex-col bg-plaster text-ink">
         <script
           type="application/ld+json"
@@ -127,9 +138,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer addressLines={addressLines} />
         <MobileActionBar />
-        
-        {/* Google Analytics */}
-        <GoogleAnalytics gaId="G-RFYGVS3J0J" />
       </body>
     </html>
   );
