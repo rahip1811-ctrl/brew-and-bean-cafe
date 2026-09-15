@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 import { Navbar } from "@/components/navbar";
@@ -138,6 +139,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer addressLines={addressLines} />
         <MobileActionBar />
+        <Analytics />
       </body>
     </html>
   );
