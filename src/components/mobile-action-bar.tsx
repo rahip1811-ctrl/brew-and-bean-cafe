@@ -45,6 +45,9 @@ export function MobileActionBar() {
       {visible && (
         <motion.div
           className="fixed inset-x-0 bottom-0 z-40 lg:hidden"
+          // Read by AnalyticsEvents, so a Directions tap here is reported as
+          // coming from the action bar rather than as an anonymous "page" click.
+          data-analytics-location="mobile_action_bar"
           initial={{ y: "110%" }}
           animate={{ y: 0 }}
           exit={{ y: "110%" }}

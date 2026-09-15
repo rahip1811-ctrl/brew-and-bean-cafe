@@ -7,6 +7,8 @@
  * nothing else — no component changes, no prop drilling, no refactor.
  */
 
+import { track } from "@/lib/analytics";
+
 export type Result = { ok: true } | { ok: false; error: string };
 
 export type Reservation = {
@@ -47,6 +49,11 @@ export function today() {
   return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata" }).format(new Date());
 }
 
+/** Whole days between two YYYY-MM-DD strings. Both parse as UTC midnight, so no DST drift. */
+function daysBetween(from: string, to: string) {
+  return Math.round((Date.parse(to) - Date.parse(from)) / 86_400_000);
+}
+
 export async function submitReservation(values: Reservation): Promise<Result> {
   await new Promise((resolve) => setTimeout(resolve, 900));
 
@@ -56,6 +63,15 @@ export async function submitReservation(values: Reservation): Promise<Result> {
   if (process.env.NODE_ENV === "development") {
     console.info("[reservation] would submit:", values);
   }
+
+  // Sent only on success, and only the shape of the booking — never the guest's
+  // name, number or note. Until the TODO above is done, this counts requests the
+  // café does not actually receive.
+  track("reserve_table", {
+    guests: Number(values.guests),
+    time_slot: values.time,
+    days_ahead: daysBetween(today(), values.date),
+  });
 
   return { ok: true };
 }
@@ -71,6 +87,9 @@ export async function subscribe(email: string): Promise<Result> {
   if (process.env.NODE_ENV === "development") {
     console.info("[newsletter] would subscribe:", email);
   }
+
+  // No email address — just the fact that someone signed up.
+  track("newsletter_signup");
 
   return { ok: true };
 }

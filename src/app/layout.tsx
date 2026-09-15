@@ -7,6 +7,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { MobileActionBar } from "@/components/mobile-action-bar";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { AnalyticsEvents } from "@/components/analytics-events";
 import {
   addressLines,
   openingHoursSpecification,
@@ -111,12 +112,25 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         {/* Google Analytics - Direct Script Tag */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFYGVS3J0J"></script>
+        {/* Opening any page once with ?internal=1 marks that browser as the
+            café's own; ?internal=0 clears it. Marked browsers send
+            traffic_type=internal, which GA's Internal Traffic data filter drops
+            from reports. Unlike an IP rule this survives a changed broadband IP
+            and covers phones on mobile data. It lives in localStorage, so it
+            has to be set once per browser and is lost if site data is cleared. */}
         <script dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-RFYGVS3J0J');
+            var bbInternal = false;
+            try {
+              var bbFlag = new URLSearchParams(location.search).get('internal');
+              if (bbFlag === '1') localStorage.setItem('bb_internal', '1');
+              if (bbFlag === '0') localStorage.removeItem('bb_internal');
+              bbInternal = localStorage.getItem('bb_internal') === '1';
+            } catch (e) {}
+            gtag('config', 'G-RFYGVS3J0J', bbInternal ? { traffic_type: 'internal' } : {});
           `,
         }} />
       </head>
@@ -139,6 +153,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer addressLines={addressLines} />
         <MobileActionBar />
+        <AnalyticsEvents />
         <Analytics />
       </body>
     </html>
