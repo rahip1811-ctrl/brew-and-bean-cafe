@@ -59,9 +59,31 @@ it out or swap these three for shots without third-party branding.
 
 ## Source sizes
 
-Most originals are large (3000–6720px, up to 3.2 MB). That's fine — `next/image`
-generates resized AVIF/WebP variants on demand and never serves the original.
-Don't pre-shrink them; the large source is what makes the retina crops sharp.
+The site runs on Render's free plan, which gives the server 512 MB of memory,
+and `next/image` resizes photos on that same server when a page asks for them.
+Two rules follow from that, and breaking either one takes every image on the
+site down, not just the offending photo.
+
+**Keep originals at or under 2560px on the longest edge.** A resize decodes the
+whole original first: a 30-megapixel phone photo is about 86 MB in memory before
+any resizing starts. The 14 largest photos were shrunk from up to 6720px to
+2560px, which took the folder from 27 MB to 7 MB. 2560px still covers a
+full-width 1920px screen. Shrink any new photo before adding it (Squoosh works).
+
+**Images are served as WebP, not AVIF** — see `next.config.ts`. AVIF files are
+smaller, but encoding them is far more memory-hungry. Measured locally by
+requesting every photo at three sizes at once, as a browser would:
+
+| Setup | Peak memory |
+|---|---|
+| Original photos, plain JPEG output | 515 MB (Render itself crashed at 521 MB) |
+| Shrunk photos, AVIF | 864 MB |
+| Shrunk photos, WebP | 377 MB |
+
+Resized copies are cached, so repeat visits cost nothing. The free instance
+loses that cache whenever it spins down, though, so the first visitor after a
+quiet spell triggers the resizing again. If the site outgrows that, the options
+are a paid Render plan or generating the image sizes at build time.
 
 Two are small, and these are the only copies available:
 
